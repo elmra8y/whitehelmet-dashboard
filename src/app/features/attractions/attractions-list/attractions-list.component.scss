@@ -1,0 +1,9 @@
+.search-control{
+  max-width: 400px;
+}
+.detail-cell {
+  max-width: 200px; /* adjust as needed */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

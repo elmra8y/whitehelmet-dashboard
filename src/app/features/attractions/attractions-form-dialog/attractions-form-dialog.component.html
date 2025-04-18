@@ -1,0 +1,39 @@
+<div class="side-dialog-container">
+  <h4 class="mb-3">
+    {{ isEditMode ? 'Edit Attraction' : 'Add Attraction' }}
+  </h4>
+  <form [formGroup]="attractionForm" (ngSubmit)="submit()" [class.disabled]="isLoading()">
+    <div class="mb-3">
+      <label class="form-label">Name*</label>
+      <input type="text" formControlName="name" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Detail*</label>
+      <textarea formControlName="detail" rows="3" class="form-control"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Cover Image URL*</label>
+      <input type="text" formControlName="coverimage" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Coordinates (Latitude, Longitude)*</label>
+      <input
+        type="text"
+        formControlName="coordinates"
+        class="form-control"
+        placeholder="e.g. 7.737619, 98.7068755"
+      />
+    </div>
+
+    <div class="d-flex justify-content-end gap-2">
+      <button type="button" class="btn btn-secondary" (click)="close()">Cancel</button>
+      <button type="submit" class="btn btn-primary" [disabled]="attractionForm.invalid || isLoading()">
+        {{ isEditMode ? 'Update' : 'Create' }}
+        <i *ngIf="isLoading()" class="bx bx-loader-alt bx-spin loader-icon mx-2"></i>
+      </button>
+    </div>
+  </form>
+</div>

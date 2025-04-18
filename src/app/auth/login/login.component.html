@@ -1,0 +1,33 @@
+<div class="login-page" [formGroup]="loginForm">
+  <div class="grid">
+    <div class="order__left centered">
+      <div class="form">
+        <h4>Whitehelmet Login</h4>
+
+        <input type="text" id="username" name="username" formControlName="username" placeholder="Email"
+               autocomplete="off">
+        <div class="text-danger" *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+          Email is required
+        </div>
+
+        <input type="password" id="password" name="password" formControlName="password" placeholder="Password"
+               autocomplete="off">
+        <div class="text-danger" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          Password is required
+        </div>
+
+        <button type="submit" class="login__button" (click)="onSubmit()" [disabled]="loginForm.invalid || isLoading">
+          Login
+          <i *ngIf="isLoading" class="bx bx-loader-alt bx-spin loader-icon mx-2"></i>
+        </button>
+
+      </div>
+    </div>
+
+    <div class="order__right centered no__overflow">
+      <img class="img"
+           src="https://img.freepik.com/free-vector/background-realistic-abstract-technology-particle_23-2148431735.jpg?t=st=1744974481~exp=1744978081~hmac=88a2f4162a1539f5fc2463afc16e6dee1b7c26d23cb61a864ab49ffb646e2940&w=996"
+           alt="picture">
+    </div>
+  </div>
+</div>

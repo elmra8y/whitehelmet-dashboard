@@ -1,0 +1,51 @@
+<!-- Sidebar for navigation -->
+<div class="sidebar" [class.open]="isSidebarOpen">
+  <div class="logo-details">
+    <!-- Icon and logo name -->
+    <i class='bx bxl-c-plus-plus icon'></i>
+    <div class="logo_name">Codepen</div>
+    <i class='bx bx-menu bx-menu-alt-right' id="btn" (click)="toggleSidebar()"></i>
+    <!-- Menu button to toggle sidebar -->
+  </div>
+  <ul class="nav-list">
+    <li>
+      <a [routerLink]="['/dashboard/statistics']">
+        <i class='bx bx-grid-alt'></i>
+        <span class="links_name">Statistics</span>
+      </a>
+      <span class="tooltip">Statistics</span>
+    </li>
+
+    <li>
+      <a [routerLink]="['/dashboard/attractions']">
+        <i class='bx bx-user'></i>
+        <span class="links_name">Attractions</span>
+      </a>
+      <span class="tooltip">Attractions</span>
+    </li>
+
+    <li>
+      <a [routerLink]="['/dashboard/users']">
+        <i class='bx bx-user'></i>
+        <span class="links_name">Users</span>
+      </a>
+      <span class="tooltip">Users</span>
+    </li>
+
+    <li class="profile">
+      <div class="profile-details">
+        <div class="name_job">
+          <div class="name">Whitehelmet</div>
+          <div class="job">Dashboard</div>
+        </div>
+      </div>
+      <i class='bx bx-log-out' id="log_out" (click)="logout()"></i> <!-- Logout icon -->
+    </li>
+  </ul>
+</div>
+<section class="home-section">
+  <router-outlet></router-outlet>
+</section>
+
+
+

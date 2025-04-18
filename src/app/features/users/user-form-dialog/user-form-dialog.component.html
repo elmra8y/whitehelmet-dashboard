@@ -1,0 +1,35 @@
+<div class="side-dialog-container">
+  <h4 class="mb-3">
+    {{ isEditMode ? 'Edit User' : 'Add User' }}
+  </h4>
+
+  <form [formGroup]="userForm" (ngSubmit)="submit()" [class.disabled]="isLoading()">
+    <div class="mb-3">
+      <label class="form-label">First Name*</label>
+      <input type="text" formControlName="fname" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Last Name*</label>
+      <input type="text" formControlName="lname" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Username*</label>
+      <input type="text" formControlName="username" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Avatar URL*</label>
+      <input type="text" formControlName="avatar" class="form-control" />
+    </div>
+
+    <div class="d-flex justify-content-end gap-2">
+      <button type="button" class="btn btn-secondary" (click)="close()">Cancel</button>
+      <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid || isLoading()">
+        {{ isEditMode ? 'Update' : 'Create' }}
+        <i *ngIf="isLoading() " class="bx bx-loader-alt bx-spin loader-icon mx-2"></i>
+      </button>
+    </div>
+  </form>
+</div>

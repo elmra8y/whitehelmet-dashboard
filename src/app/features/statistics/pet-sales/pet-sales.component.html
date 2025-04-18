@@ -1,0 +1,60 @@
+<div class="card p-4 mb-4">
+  <div class="col-md-4">
+    <h5>Choose a date</h5>
+    <mat-form-field>
+      <mat-label>Choose a date</mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate" (dateChange)="onDateChange($event)">
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </div>
+</div>
+<div class="statistics-container d-flex gap-4 flex-wrap" *ngIf="selectedDate">
+  <div class="pet-sales">
+    <h2 class="mt-0 mb-4">Pet Sales Weekly Statistics</h2>
+    <div class="chart-container">
+      <canvas baseChart [data]="lineChartData" [options]="lineChartOptions" [type]="'line'"></canvas>
+    </div>
+  </div>
+  <div class="daily-data">
+    <h2 class="mt-0 mb-4">Pet Sales Weekly Statistics</h2>
+    <div class="card daily-card">
+      <small class="card-title">
+        click on chart to display details
+      </small>
+      <strong class="card-title" *ngIf="selectedDailyDate">
+        {{selectedDailyDate}} detailed are
+      </strong>
+
+      <div class="card mt-2">
+        <div class="card-body p-0">
+          <div class="table-container">
+            <table class="table table-hover table-sm align-middle mb-0">
+              <thead>
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Animal</th>
+                <th scope="col">Price ($)</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of dailySalesData">
+                <td class="">{{ item.date }}</td>
+                <td class="text-capitalize">{{ item.animal }}</td>
+                <td>{{ item.price | number:'1.2-2' }}</td>
+              </tr>
+              <tr *ngIf="dailySalesDataLoading">
+                <td colspan="3" class="text-center">
+                  <i class="bx bx-loader-alt bx-spin loader-icon mx-2"></i>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

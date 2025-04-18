@@ -1,0 +1,115 @@
+<div class="page-container">
+  <div class="card users-card p-4">
+    <div class="card-title d-flex justify-content-between align-items-center">
+      <h3 class="mb-0">Users List</h3>
+      <div class="d-flex gap-2 flex-grow-1 justify-content-end">
+        <input type="text" [formControl]="searchControl"
+               class="form-control search-control"
+               placeholder="Search users..."/>
+        <button class="btn btn-primary btn-sm" (click)="openUserDialog()">
+          <i class="bx bx-plus"></i> Add User
+        </button>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="table-container">
+        <table class="table table-hover table-sm align-middle mb-0">
+          <thead>
+          <tr>
+            <th scope="col">Avatar</th>
+
+            <th scope="col" (click)="setSort('fname')" style="cursor: pointer;">
+              First Name
+              <i class="bx" [ngClass]="{
+                      'bx-chevron-up': currentSort.field === 'fname' && currentSort.direction === 'asc',
+                      'bx-chevron-down': currentSort.field === 'fname' && currentSort.direction === 'desc'
+                    }"></i>
+            </th>
+
+            <th scope="col" (click)="setSort('lname')" style="cursor: pointer;">
+              Last Name
+              <i class="bx" [ngClass]="{
+                      'bx-chevron-up': currentSort.field === 'lname' && currentSort.direction === 'asc',
+                      'bx-chevron-down': currentSort.field === 'lname' && currentSort.direction === 'desc'
+                    }"></i>
+            </th>
+
+            <th scope="col" (click)="setSort('username')" style="cursor: pointer;">
+              Username
+              <i class="bx" [ngClass]="{
+                      'bx-chevron-up': currentSort.field === 'username' && currentSort.direction === 'asc',
+                      'bx-chevron-down': currentSort.field === 'username' && currentSort.direction === 'desc'
+                    }"></i>
+            </th>
+
+            <th scope="col">Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <ng-container *ngIf="users$ | async as users">
+            <tr *ngFor="let user of users">
+              <td>
+                <img
+                  [src]="user.avatar"
+                  width="32"
+                  height="32"
+                  alt="avatar"
+                  class="rounded-circle"
+                  loading="lazy"
+                />
+              </td>
+              <td class="text-capitalize">{{ user.fname }}</td>
+              <td class="text-capitalize">{{ user.lname }}</td>
+              <td>{{ user.username }}</td>
+              <td>
+                <button class="btn btn-sm btn-outline-secondary me-1" (click)="openUserDialog(user)">
+                  <i class="bx bx-edit-alt"></i>
+                </button>
+                <button class="btn btn-sm btn-outline-danger" (click)="openDeleteUserDialog(user)">
+                  <i class="bx bx-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </ng-container>
+          <tr *ngIf="loading$ | async">
+            <td colspan="5" class="text-center">
+              <i class="bx bx-loader-alt bx-spin loader-icon mx-2"></i>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <nav class="mt-3 d-flex justify-content-center" *ngIf="total$ | async as total">
+        <ul class="pagination pagination-sm mb-0">
+          <li
+            class="page-item"
+            [class.disabled]="currentPage === 1"
+            (click)="setPage(currentPage - 1)"
+          >
+            <a class="page-link" href="javascript:void(0)">Prev</a>
+          </li>
+
+          <li
+            class="page-item"
+            *ngFor="let page of [].constructor(Math.ceil(total / pageSize)); let i = index"
+            [class.active]="currentPage === i + 1"
+            (click)="setPage(i + 1)"
+          >
+            <a class="page-link" href="javascript:void(0)">{{ i + 1 }}</a>
+          </li>
+
+          <li
+            class="page-item"
+            [class.disabled]="currentPage === Math.ceil(total / pageSize)"
+            (click)="setPage(currentPage + 1)"
+          >
+            <a class="page-link" href="javascript:void(0)">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
